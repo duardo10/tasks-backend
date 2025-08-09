@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const db = require("./config/database");
+const consign = require("consign");
 
 const app = express();
 
@@ -9,6 +10,15 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// consign
+consign()
+    .include("./config/middlewares.js")
+    .then("./api")
+    .then("./config/routes.js")
+    .into(app);
+
+app.db = db;
 
 // Rotas
 app.get("/", (req, res) => {
