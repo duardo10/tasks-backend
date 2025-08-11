@@ -13,7 +13,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // consign
 consign()
-    .include("./config/middlewares.js")
+    .include("./config/passport.js")
+    .then("./config/middlewares.js")
     .then("./api")
     .then("./config/routes.js")
     .into(app);
